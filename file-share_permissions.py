@@ -31,7 +31,7 @@ for name, path in shares:
         print(f"Unable to retrieve SMB permissions for {name}: {e}")
     print("")
 
-    # Step 3: Enumerate File-level (NTFS) permissions
+# Step 3: Enumerate File-level (NTFS) permissions
     print("[ NTFS File-Level Permissions ]")
     print("-" * 60)
     try:
