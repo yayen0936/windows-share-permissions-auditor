@@ -55,7 +55,7 @@ class RemoteAuditor:
     # -------------------------------
     def transfer_script(self):
         if not os.path.exists(self.local_script):
-            raise FileNotFoundError(f"Local file not found: {self.local_script}")
+            print(f"[!] Local file not found: {self.local_script}")
             sys.exit(1)
 
         print(f"[+] Sending {os.path.basename(self.local_script)} to {self.remote_script} ...")
