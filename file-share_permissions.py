@@ -1,41 +1,39 @@
 import subprocess
 
-SERVER = "LAB-DEWEY"
+server = "LAB-DEWEY"
 
 def get_smb_share():
-    ps_command = f'powershell -NoProfile -Command "Get-SmbShare -CimSession {SERVER}"'
+    ps_command = 'powershell -NoProfile -Command "Get-SmbShare | Format-Table -AutoSize"'
     try:
         output = subprocess.check_output(ps_command, shell=True, text=True, stderr=subprocess.STDOUT)
         print("=" * 80)
-        print(f"[ SMB Shares on {SERVER} ]")
+        print(f"[ SMB Shares on {server} ]")
         print("=" * 80)
         print(output)
     except subprocess.CalledProcessError as e:
-        print(f"[!] Failed to get SMB shares from {SERVER}:")
+        print(f"[!] Failed to get SMB shares from {server}:")
         print(e.output)
 
 def get_share_acl():
     ps_command = (
-        f'powershell -NoProfile -Command "Get-SmbShare -CimSession {SERVER} | '
-        f'ForEach-Object {{ Get-SmbShareAccess -Name $_.Name -CimSession {SERVER} }}"'
+        'powershell -NoProfile -Command "Get-SmbShare | '
+        'ForEach-Object { Get-SmbShareAccess -Name $_.Name | Format-Table -AutoSize }"'
     )
     try:
         output = subprocess.check_output(ps_command, shell=True, text=True, stderr=subprocess.STDOUT)
         print("=" * 80)
-        print(f"[ SMB Share-Level ACLs on {SERVER} ]")
+        print(f"[ SMB Share-Level ACLs on {server} ]")
         print("=" * 80)
         print(output)
     except subprocess.CalledProcessError as e:
-        print(f"[!] Failed to get Share ACLs from {SERVER}:")
+        print(f"[!] Failed to get Share ACLs from {server}:")
         print(e.output)
-
 
 def get_ntfs_acl():
     folder_path = "E:\\Test"
 
     ps_command = (
         f'powershell -NoProfile -Command "'
-        f'Invoke-Command -ComputerName {SERVER} {{ '
         f', (Get-Item \'{folder_path}\') + (Get-ChildItem \'{folder_path}\' -Recurse -ErrorAction SilentlyContinue) | '
         f'ForEach-Object {{ '
         f'try {{ '
@@ -51,25 +49,26 @@ def get_ntfs_acl():
         f'}} '
         f'}} '
         f'}} catch {{ Write-Host \\"Access denied: $($_.FullName)\\" }} '
-        f'}} | Format-Table -AutoSize '
-        f'}}"'
+        f'}} | Format-Table -AutoSize"'
     )
 
     try:
         output = subprocess.check_output(ps_command, shell=True, text=True, stderr=subprocess.STDOUT)
         print("=" * 80)
-        print(f"[ NTFS File-Level ACLs on {SERVER} ({folder_path}) ]")
+        print(f"[ NTFS File-Level ACLs on {server} ({folder_path}) ]")
         print("=" * 80)
         print(output)
     except subprocess.CalledProcessError as e:
-        print(f"[!] Failed to get NTFS ACLs from {SERVER}:")
+        print(f"[!] Failed to get NTFS ACLs from {server}:")
         print(e.output)
 
 def main():
-    print(f"Enumerating SMB and NTFS permissions for {SERVER}...\n")
+    print(f"Enumerating SMB and NTFS permissions for {server}...\n")
+    
     get_smb_share()
     get_share_acl()
     get_ntfs_acl()
+
     print("\nAudit complete.\n")
 
 if __name__ == "__main__":
