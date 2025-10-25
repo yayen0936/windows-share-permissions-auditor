@@ -13,7 +13,8 @@ REMOTE_LOG_DIR = r"C:\Scripts\logs"
 PYTHON_PATH = r"C:\Scripts\path\python.exe"
 
 timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-LOCAL_LOG = fr"C:\Scripts\logs\audit_{SERVER}_{timestamp}.txt"
+timestamp_str = str(timestamp)
+LOCAL_LOG = fr"C:\Scripts\logs\audit_{SERVER}_{timestamp_str}.txt"
 REMOTE_LOG = fr"{REMOTE_LOG_DIR}\audit.txt"
 
 # ---------------------------------------------------------------------
