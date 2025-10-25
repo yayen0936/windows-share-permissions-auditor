@@ -1,13 +1,13 @@
-import subprocess
+import subprocess  # module: used to execute PowerShell commands through the system shell
 
 # ---------------------------------------------------------------------
 # Global Variables
 # ---------------------------------------------------------------------
 server = "LAB-DEWEY"
-folder_path = "E:\\"
+folder_path = "E:\\"  # represents the folder path to scan for permissions
 
 # ---------------------------------------------------------------------
-# Class Definition
+# class: defines a blueprint for auditing SMB shares and NTFS permissions
 # ---------------------------------------------------------------------
 class FileShareAuditor:
     def __init__(self):
@@ -16,7 +16,7 @@ class FileShareAuditor:
         self.folder_path = folder_path
 
     # -------------------------------
-    # Utility: Run PowerShell Command
+    # function: runs a PowerShell command and handles exceptions
     # -------------------------------
     def run_powershell(self, ps_command, description):
         """Execute a PowerShell command and handle errors."""
@@ -31,14 +31,14 @@ class FileShareAuditor:
             print(e.output)
 
     # -------------------------------
-    # SMB Shares
+    # function: retrieves a list of all SMB shares on the system
     # -------------------------------
     def get_smb_share(self):
         ps_command = 'powershell -NoProfile -Command "Get-SmbShare | Format-Table -AutoSize"'
         self.run_powershell(ps_command, "SMB Shares")
 
     # -------------------------------
-    # SMB Share ACLs
+    # function: retrieves the access control lists (ACLs) for each SMB share
     # -------------------------------
     def get_share_acl(self):
         ps_command = (
@@ -48,7 +48,7 @@ class FileShareAuditor:
         self.run_powershell(ps_command, "SMB Share-Level ACLs")
 
     # -------------------------------
-    # NTFS ACLs
+    # function: retrieves NTFS permissions for the specified folder path
     # -------------------------------
     def get_ntfs_acl(self):
         ps_command = (
@@ -56,7 +56,7 @@ class FileShareAuditor:
             f', (Get-Item \'{self.folder_path}\') + (Get-ChildItem \'{self.folder_path}\' -Recurse -ErrorAction SilentlyContinue) | '
             f'ForEach-Object {{ '
             f'try {{ '
-            f'$acl = Get-Acl $_.FullName; '
+            f'$acl = Get-Acl $_.FullName; '  # file metadata: reading file ACLs via PowerShell
             f'foreach ($entry in $acl.Access) {{ '
             f'[PSCustomObject]@{{ '
             f'Path=$_.FullName; '
@@ -73,23 +73,24 @@ class FileShareAuditor:
         self.run_powershell(ps_command, f"NTFS File-Level ACLs ({self.folder_path})")
 
     # -------------------------------
-    # Full Audit Workflow
+    # function: performs the full SMB and NTFS audit workflow
     # -------------------------------
     def run_full_audit(self):
         print(f"=== Starting File Share and NTFS Audit for {self.server} ===\n")
 
-        self.get_smb_share()
-        self.get_share_acl()
-        self.get_ntfs_acl()
+        self.get_smb_share()    # function call: enumerate SMB shares
+        self.get_share_acl()    # function call: get SMB permissions
+        self.get_ntfs_acl()     # function call: get NTFS permissions
 
         print(f"\n=== Audit Complete for {self.server} ===\n")
 
 # ---------------------------------------------------------------------
-# Main Execution
+# function: serves as the main entry point for the script
 # ---------------------------------------------------------------------
 def main():
-    auditor = FileShareAuditor()
-    auditor.run_full_audit()
+    auditor = FileShareAuditor()  # class object: creates an instance of FileShareAuditor
+    auditor.run_full_audit()      # function call: runs the full audit workflow
 
+# entry point: ensures the script only runs when executed directly
 if __name__ == "__main__":
     main()
