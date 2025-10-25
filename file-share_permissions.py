@@ -11,9 +11,14 @@ for line in lines:
         if len(parts) >= 2:
             share_name = parts[0]
             share_path = parts[1]
-            shares.append((share_name, share_path))
+            # Only include shares located on E:\ drive but exclude the root (E$) and admin shares
+            if share_path.lower().startswith("e:\\") and share_path.strip().lower() != "e:\\":
+                shares.append((share_name, share_path))
 
-print("Enumerating SMB (share-level) and NTFS (file-level) permissions...\n")
+if not shares:
+    print("No shared folders found on E:\\ drive.\n")
+else:
+    print("Enumerating SMB (share-level) and NTFS (file-level) permissions for E:\\ drive shares...\n")
 
 # Step 2: Enumerate Share-level (SMB) permissions
 for name, path in shares:
@@ -31,7 +36,7 @@ for name, path in shares:
         print(f"Unable to retrieve SMB permissions for {name}: {e}")
     print("")
 
-# Step 3: Enumerate File-level (NTFS) permissions
+    # Step 3: Enumerate File-level (NTFS) permissions
     print("[ NTFS File-Level Permissions ]")
     print("-" * 60)
     try:
@@ -42,5 +47,5 @@ for name, path in shares:
         print(f"Unable to retrieve NTFS permissions for {path}: {e}")
     print("\n\n")
 
-# Step 4: Pause before closing
-input("Press Enter to close...")
+# Step 4: Optional pause before exit
+# input("Press Enter to close...")
