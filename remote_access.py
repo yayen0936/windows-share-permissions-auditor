@@ -1,6 +1,7 @@
 from pypsrp.client import Client
 import os
 import datetime
+import sys
 
 # ---------------------------------------------------------------------
 # Global Configuration
@@ -55,6 +56,7 @@ class RemoteAuditor:
     def transfer_script(self):
         if not os.path.exists(self.local_script):
             raise FileNotFoundError(f"Local file not found: {self.local_script}")
+            sys.exit(1)
 
         print(f"[+] Sending {os.path.basename(self.local_script)} to {self.remote_script} ...")
         self.client.copy(self.local_script, self.remote_script)
@@ -137,4 +139,9 @@ def main():
     auditor.run_full_audit()
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+        sys.exit(0)
+    except Exception as e:
+        print(f"[!] Script failed: {e}")
+        sys.exit(1)    
