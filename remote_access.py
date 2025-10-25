@@ -11,7 +11,7 @@ LOCAL_SCRIPT = r"C:\Scripts\file_share_permissions.py"
 REMOTE_SCRIPT = r"C:\Scripts\file_share_permissions.py"
 REMOTE_BASE_DIR = r"C:\Scripts"
 REMOTE_LOG_DIR = r"C:\Scripts\logs"
-PYTHON_PATH = r"C:\Scripts\path\python.exe"
+PYTHON_PATH = r"C:\Users\Administrator.itsadlab\AppData\Local\Programs\Python\Python314\python.exe"
 
 timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
 timestamp_str = str(timestamp)
@@ -69,7 +69,8 @@ class RemoteAuditor:
         print(f"[+] Executing {os.path.basename(self.remote_script)} on {self.server} ...")
 
         command = (
-            f"& '{self.python_path}' -u '{self.remote_script}' "
+            f"$py = '{self.python_path}'; "
+            f"& $py -u '{self.remote_script}' "
             f"| Out-File -FilePath '{self.remote_log}' -Encoding utf8 -Force"
         )
 
