@@ -1,51 +1,47 @@
 import subprocess
 
-# Step 1: Get shared folder names and their paths
-output = subprocess.check_output("net share", shell=True, text=True)
-lines = output.splitlines()
-shares = []
+def get_smb_share():
+    server = "LAB-DEWEY"
+    ps_command = f'powershell -Command "Get-SmbShare -CimSession {server}"'
+    output = subprocess.check_output(ps_command, shell=True, text=True)
+    print(output)
 
-for line in lines:
-    if ":" in line and "\\" in line:
-        parts = line.split()
-        if len(parts) >= 2:
-            share_name = parts[0]
-            share_path = parts[1]
-            # Only include shares located on E:\ drive but exclude the root (E$) and admin shares
-            if share_path.lower().startswith("e:\\") and share_path.strip().lower() != "e:\\":
-                shares.append((share_name, share_path))
+def enumerate_smb_permissions(share_name):
+    try:
+        ps_command = f"powershell -Command \"Get-SmbShareAccess -Name '{share_name}' | Select-Object AccountName,AccessRight | Format-Table -AutoSize\""
+        smb_acl = subprocess.check_output(ps_command, shell=True, text=True)
+        return smb_acl.strip()
+    except Exception as e:
+        return f"Unable to retrieve SMB permissions for {share_name}: {e}"
 
-if not shares:
-    print("No shared folders found on E:\\ drive.\n")
-else:
+
+def enumerate_ntfs_permissions(folder_path):
+    try:
+        ntfs_acl = subprocess.check_output(f'icacls "{folder_path}" /T /C', shell=True, text=True, errors='ignore')
+        return ntfs_acl.strip()
+    except Exception as e:
+        return f"Unable to retrieve NTFS permissions for {folder_path}: {e}"
+
+
+def main():
+    get_smb_share()
+
     print("Enumerating SMB (share-level) and NTFS (file-level) permissions for E:\\ drive shares...\n")
 
-# Step 2: Enumerate Share-level (SMB) permissions
-for name, path in shares:
-    print("=" * 60)
-    print(f"Share Name : {name}")
-    print(f"Folder Path: {path}")
-    print("=" * 60)
-    print("\n[ SMB Share-Level Permissions ]")
-    print("-" * 60)
-    try:
-        ps_command = f"powershell -Command \"Get-SmbShareAccess -Name '{name}' | Select-Object AccountName,AccessRight | Format-Table -AutoSize\""
-        smb_acl = subprocess.check_output(ps_command, shell=True, text=True)
-        print(smb_acl.strip())
-    except Exception as e:
-        print(f"Unable to retrieve SMB permissions for {name}: {e}")
-    print("")
+    for name, path in shares:
+        print("=" * 60)
+        print(f"Share Name : {name}")
+        print(f"Folder Path: {path}")
+        print("=" * 60)
 
-    # Step 3: Enumerate File-level (NTFS) permissions
-    print("[ NTFS File-Level Permissions ]")
-    print("-" * 60)
-    try:
-        # /T = traverse subfolders, /C = continue on errors (access denied)
-        ntfs_acl = subprocess.check_output(f'icacls "{path}" /T /C', shell=True, text=True, errors='ignore')
-        print(ntfs_acl.strip())
-    except Exception as e:
-        print(f"Unable to retrieve NTFS permissions for {path}: {e}")
-    print("\n\n")
+        print("\n[ SMB Share-Level Permissions ]")
+        print("-" * 60)
+        print(enumerate_smb_permissions(name))
 
-# Step 4: Optional pause before exit
-# input("Press Enter to close...")
+        print("\n[ NTFS File-Level Permissions ]")
+        print("-" * 60)
+        print(enumerate_ntfs_permissions(path))
+        print("\n\n")
+
+if __name__ == "__main__":
+    main()
