@@ -13,7 +13,7 @@ timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
 LOCAL_LOG = fr"C:\Scripts\logs\audit_{SERVER}_{timestamp}.txt"
 REMOTE_LOG = fr"{REMOTE_LOG_DIR}\audit.txt"
 
-PYTHON_PATH = r"C:\Scripts\python.exe"
+PYTHON_PATH = r"C:\Scripts\path\python.exe"
 
 def connect_to_server(server_name):
     # Connect to target server using Kerberos authentication
