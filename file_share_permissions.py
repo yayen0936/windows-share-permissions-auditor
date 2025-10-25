@@ -4,7 +4,7 @@ import subprocess
 # Global Variables
 # ---------------------------------------------------------------------
 server = "LAB-DEWEY"
-folder_path = "E:\\Test"
+folder_path = "E:\\"
 
 # ---------------------------------------------------------------------
 # Class Definition
