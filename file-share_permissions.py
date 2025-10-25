@@ -3,17 +3,17 @@ import subprocess
 def get_smb_share():
     server = "LAB-DEWEY"
     ps_command = f'powershell -Command "Get-SmbShare -CimSession {server}"'
-    output = subprocess.check_output(ps_command, shell=True, text=True)
-    print(output)
+    smb_share = subprocess.check_output(ps_command, shell=True, text=True)
+    print(smb_share)
 
-def enumerate_smb_permissions(share_name):
-    try:
-        ps_command = f"powershell -Command \"Get-SmbShareAccess -Name '{share_name}' | Select-Object AccountName,AccessRight | Format-Table -AutoSize\""
-        smb_acl = subprocess.check_output(ps_command, shell=True, text=True)
-        return smb_acl.strip()
-    except Exception as e:
-        return f"Unable to retrieve SMB permissions for {share_name}: {e}"
-
+def get_share_acl():
+    server = "LAB-DEWEY"
+    ps_command = (
+        f'powershell -Command "Get-SmbShare -CimSession {server} | '
+        f'ForEach-Object {{ Get-SmbShareAccess -Name $_.Name -CimSession {server} }}"'
+    ) 
+    share_acl = subprocess.check_output(ps_command, shell=True, text=True)
+    print(share_acl)
 
 def enumerate_ntfs_permissions(folder_path):
     try:
@@ -21,10 +21,9 @@ def enumerate_ntfs_permissions(folder_path):
         return ntfs_acl.strip()
     except Exception as e:
         return f"Unable to retrieve NTFS permissions for {folder_path}: {e}"
-
-
 def main():
     get_smb_share()
+    get_share_acl()
 
     print("Enumerating SMB (share-level) and NTFS (file-level) permissions for E:\\ drive shares...\n")
 
