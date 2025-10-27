@@ -19,15 +19,6 @@ By detecting these configurations early, this tool helps reduce risks such as:
 
 ---
 
-## ⚙️ Features
-- Enumerates all shared folders using `net share`
-- Collects **SMB share-level permissions** via `Get-SmbShareAccess`
-- Collects **NTFS file-level permissions** via `icacls`
-- Highlights potential misconfigurations or high-risk permissions
-- Generates a structured report for auditing and compliance
-
----
-
 ## 🧰 Requirements
 - Windows Server 2022  
 - Python 3.10 or higher  
@@ -38,7 +29,7 @@ By detecting these configurations early, this tool helps reduce risks such as:
 
 ## 🚀 Usage
 
-Run the script directly on a Windows Server or remotely on Client machine:
+Run the script directly remotely on Client machine:
 
 ```python
-python enumerate_smb_and_ntfs.py
+python .\remote_access.py
