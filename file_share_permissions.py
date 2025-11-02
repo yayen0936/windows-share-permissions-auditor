@@ -1,4 +1,6 @@
 import subprocess  # module: used to execute PowerShell commands through the system shell
+import psutil      # new module: used to monitor process and system resource usage
+import time
 
 # ---------------------------------------------------------------------
 # Global Variables
@@ -23,9 +25,35 @@ class FileShareAuditor:
         print("=" * 80)
         print(f"[ {description} on {self.server} ]")
         print("=" * 80)
+
+        start_time = time.time()
         try:
-            output = subprocess.check_output(ps_command, shell=True, text=True, stderr=subprocess.STDOUT)
-            print(output)
+            # --- Launch PowerShell as a subprocess ---
+            proc = subprocess.Popen(ps_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+
+            # --- Attach psutil to monitor this process ---
+            ps_proc = psutil.Process(proc.pid)
+
+            # --- Periodically check CPU/memory usage while running ---
+            while proc.poll() is None:
+                try: 
+                    cpu = ps_proc.cpu_percent(interval=1)
+                    mem = ps_proc.memory_info().rss / (1024 * 1024)
+                    print(f"[Monitor] PID {proc.pid} | CPU: {cpu:.1f}% | MEM: {mem:.2f} MB")
+                except (psutil.NoSuchProcess, psutil.ZombieProcess):
+                    break
+
+            # --- Once complete, collect the full output ---
+            output, error = proc.communicate()
+            end_time = time.time()
+
+            runtime = round(end_time - start_time, 2)
+            print(f"\n[+] Completed: {description} (Runtime: {runtime}s)")
+            if output:
+                print(output)
+            if error:
+                print(f"[!] Errors:\n{error}")
+
         except subprocess.CalledProcessError as e:
             print(f"[!] Failed to run: {description}")
             print(e.output)
