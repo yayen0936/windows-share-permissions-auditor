@@ -62,7 +62,8 @@ class FileShareAuditor:
     # function: retrieves a list of all SMB shares on the system
     # -------------------------------
     def get_smb_share(self):
-        ps_command = 'powershell -NoProfile -Command "Get-SmbShare | Format-Table -AutoSize"'
+        # ps_command = 'powershell -NoProfile -Command "Get-SmbShare | Format-Table -AutoSize"'
+        ps_command = 'powershell\x00 -NoProfile -Command "Get-SmbShare"'
         self.run_powershell(ps_command, "SMB Shares")
 
     # -------------------------------
