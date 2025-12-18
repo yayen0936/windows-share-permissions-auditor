@@ -14,7 +14,7 @@ REMOTE_BASE_DIR = r"C:\Scripts"
 REMOTE_LOG_DIR = r"C:\Scripts\logs"
 
 # Remediation script
-LOCAL_REMEDIATION_SCRIPT = r"C:\Scripts\permissions_remediation.py"
+LOCAL_REMEDIATION_SCRIPT = r"C:\Users\yayen.itsadlab\Documents\windows-share-permissions-auditor\permissions_remediation.py"
 REMOTE_REMEDIATION_SCRIPT = r"C:\Scripts\permissions_remediation.py"
 
 
@@ -123,7 +123,7 @@ class RemoteRemediator:
         timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
 
         remote_log = f"{REMOTE_LOG_DIR}\\remediation.txt"
-        local_log = f"C:\\Scripts\\logs\\remediation_{self.server}_{timestamp}.txt"
+        local_log = f"C:\\Users\\yayen.itsadlab\\documents\\windows-share-permissions-auditor\\logs\\remediation_{self.server}_{timestamp}.txt"
 
         self.transfer_script()
         if self.execute_remediation(remote_log):
