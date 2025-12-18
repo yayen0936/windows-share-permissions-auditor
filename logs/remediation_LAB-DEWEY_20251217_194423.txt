@@ -1,0 +1,142 @@
+﻿=== Starting Permissions Remediation for LAB-DEWEY ===
+
+================================================================================
+[ SMB Share Remediation on LAB-DEWEY ]
+================================================================================
+
+Name                 ScopeName AccountName                   AccessControlType AccessRight
+----                 --------- -----------                   ----------------- -----------
+Backups              *         BUILTIN\Administrators        Allow             Full       
+Backups              *         itsadlab\System Administrator Allow             Change     
+Backups              *         NT AUTHORITY\SYSTEM           Allow             Full       
+Backups              *         itsadlab\System Administrator Allow             Change     
+Backups              *         NT AUTHORITY\SYSTEM           Allow             Full       
+Backups              *         BUILTIN\Administrators        Allow             Full       
+Backups              *         NT AUTHORITY\SYSTEM           Allow             Full       
+Backups              *         BUILTIN\Administrators        Allow             Full       
+Backups              *         itsadlab\System Administrator Allow             Change     
+IT                   *         BUILTIN\Administrators        Allow             Full       
+IT                   *         itsadlab\System Administrator Allow             Change     
+IT                   *         NT AUTHORITY\SYSTEM           Allow             Full       
+IT                   *         itsadlab\System Administrator Allow             Change     
+IT                   *         NT AUTHORITY\SYSTEM           Allow             Full       
+IT                   *         BUILTIN\Administrators        Allow             Full       
+IT                   *         NT AUTHORITY\SYSTEM           Allow             Full       
+IT                   *         BUILTIN\Administrators        Allow             Full       
+IT                   *         itsadlab\System Administrator Allow             Change     
+Public               *         BUILTIN\Administrators        Allow             Full       
+Public               *         itsadlab\System Administrator Allow             Change     
+Public               *         NT AUTHORITY\SYSTEM           Allow             Full       
+Public               *         itsadlab\System Administrator Allow             Change     
+Public               *         NT AUTHORITY\SYSTEM           Allow             Full       
+Public               *         BUILTIN\Administrators        Allow             Full       
+Public               *         NT AUTHORITY\SYSTEM           Allow             Full       
+Public               *         BUILTIN\Administrators        Allow             Full       
+Public               *         itsadlab\System Administrator Allow             Change     
+ITSC-203 - Scripting *         BUILTIN\Administrators        Allow             Full       
+ITSC-203 - Scripting *         itsadlab\Students             Allow             Change     
+ITSC-203 - Scripting *         NT AUTHORITY\SYSTEM           Allow             Full       
+ITSC-203 - Scripting *         itsadlab\Students             Allow             Change     
+ITSC-203 - Scripting *         NT AUTHORITY\SYSTEM           Allow             Full       
+ITSC-203 - Scripting *         BUILTIN\Administrators        Allow             Full       
+ITSC-203 - Scripting *         NT AUTHORITY\SYSTEM           Allow             Full       
+ITSC-203 - Scripting *         BUILTIN\Administrators        Allow             Full       
+ITSC-203 - Scripting *         itsadlab\Students             Allow             Change     
+
+
+
+[+] Processing NTFS: E:\Backups
+processed file: E:\Backups
+processed file: E:\Backups\router_config.cfg
+processed file: E:\Backups\server_backup.cfg
+processed file: E:\Backups\switch_config.txt
+Successfully processed 4 files; Failed processing 0 files
+processed file: E:\Backups
+processed file: E:\Backups\router_config.cfg
+processed file: E:\Backups\server_backup.cfg
+processed file: E:\Backups\switch_config.txt
+Successfully processed 4 files; Failed processing 0 files
+processed file: E:\Backups
+processed file: E:\Backups\router_config.cfg
+processed file: E:\Backups\server_backup.cfg
+processed file: E:\Backups\switch_config.txt
+Successfully processed 4 files; Failed processing 0 files
+processed file: E:\Backups
+processed file: E:\Backups\router_config.cfg
+processed file: E:\Backups\server_backup.cfg
+processed file: E:\Backups\switch_config.txt
+Successfully processed 4 files; Failed processing 0 files
+processed file: E:\Backups
+processed file: E:\Backups\router_config.cfg
+processed file: E:\Backups\server_backup.cfg
+processed file: E:\Backups\switch_config.txt
+Successfully processed 4 files; Failed processing 0 files
+processed file: E:\Backups
+Successfully processed 1 files; Failed processing 0 files
+[+] Processing NTFS: E:\IT
+processed file: E:\IT
+processed file: E:\IT\admin_passwords.txt
+processed file: E:\IT\office_licensess.txt
+processed file: E:\IT\wifi_passwords.txt
+Successfully processed 4 files; Failed processing 0 files
+processed file: E:\IT
+processed file: E:\IT\admin_passwords.txt
+processed file: E:\IT\office_licensess.txt
+processed file: E:\IT\wifi_passwords.txt
+Successfully processed 4 files; Failed processing 0 files
+processed file: E:\IT
+processed file: E:\IT\admin_passwords.txt
+processed file: E:\IT\office_licensess.txt
+processed file: E:\IT\wifi_passwords.txt
+Successfully processed 4 files; Failed processing 0 files
+processed file: E:\IT
+processed file: E:\IT\admin_passwords.txt
+processed file: E:\IT\office_licensess.txt
+processed file: E:\IT\wifi_passwords.txt
+Successfully processed 4 files; Failed processing 0 files
+processed file: E:\IT
+processed file: E:\IT\admin_passwords.txt
+processed file: E:\IT\office_licensess.txt
+processed file: E:\IT\wifi_passwords.txt
+Successfully processed 4 files; Failed processing 0 files
+processed file: E:\IT
+Successfully processed 1 files; Failed processing 0 files
+[+] Processing NTFS: E:\Public
+processed file: E:\Public
+Successfully processed 1 files; Failed processing 0 files
+processed file: E:\Public
+Successfully processed 1 files; Failed processing 0 files
+processed file: E:\Public
+Successfully processed 1 files; Failed processing 0 files
+processed file: E:\Public
+Successfully processed 1 files; Failed processing 0 files
+processed file: E:\Public
+Successfully processed 1 files; Failed processing 0 files
+processed file: E:\Public
+Successfully processed 1 files; Failed processing 0 files
+[+] Processing NTFS: E:\ITSC-203 - Scripting
+processed file: E:\ITSC-203 - Scripting
+processed file: E:\ITSC-203 - Scripting\Lab Activities
+processed file: E:\ITSC-203 - Scripting\Learning Materials
+Successfully processed 3 files; Failed processing 0 files
+processed file: E:\ITSC-203 - Scripting
+processed file: E:\ITSC-203 - Scripting\Lab Activities
+processed file: E:\ITSC-203 - Scripting\Learning Materials
+Successfully processed 3 files; Failed processing 0 files
+processed file: E:\ITSC-203 - Scripting
+processed file: E:\ITSC-203 - Scripting\Lab Activities
+processed file: E:\ITSC-203 - Scripting\Learning Materials
+Successfully processed 3 files; Failed processing 0 files
+processed file: E:\ITSC-203 - Scripting
+processed file: E:\ITSC-203 - Scripting\Lab Activities
+processed file: E:\ITSC-203 - Scripting\Learning Materials
+Successfully processed 3 files; Failed processing 0 files
+processed file: E:\ITSC-203 - Scripting
+processed file: E:\ITSC-203 - Scripting\Lab Activities
+processed file: E:\ITSC-203 - Scripting\Learning Materials
+Successfully processed 3 files; Failed processing 0 files
+processed file: E:\ITSC-203 - Scripting
+Successfully processed 1 files; Failed processing 0 files
+
+=== Remediation Complete for LAB-DEWEY ===
+
