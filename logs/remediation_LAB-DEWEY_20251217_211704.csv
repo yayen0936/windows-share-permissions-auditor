@@ -1,0 +1,135 @@
+﻿=== Starting NTFS + SMB Remediation on LAB-DEWEY ===
+
+================================================================================
+[ NTFS Remediation on LAB-DEWEY ]
+================================================================================
+
+[+] Completed: NTFS Remediation (Runtime: 0.28s)
+
+Processing NTFS permissions for: E:\IT
+ - Added NTFS permission: ITSADLAB\System Administrator (RW)
+Current NTFS Permissions:
+
+IdentityReference                FileSystemRights AccessControlType
+-----------------                ---------------- -----------------
+CREATOR OWNER                         FullControl             Allow
+NT AUTHORITY\SYSTEM                   FullControl             Allow
+BUILTIN\Administrators                FullControl             Allow
+itsadlab\System Administrator Modify, Synchronize             Allow
+
+
+
+Processing NTFS permissions for: E:\ITSC-203 - Scripting
+ - Added NTFS permission: itsadlab\Students (RW)
+Current NTFS Permissions:
+
+IdentityReference         FileSystemRights AccessControlType
+-----------------         ---------------- -----------------
+NT AUTHORITY\SYSTEM            FullControl             Allow
+BUILTIN\Administrators         FullControl             Allow
+itsadlab\Students      Modify, Synchronize             Allow
+
+
+
+Processing NTFS permissions for: E:\Public
+ - Added NTFS permission: ITSADLAB\System Administrator (RW)
+Current NTFS Permissions:
+
+IdentityReference                FileSystemRights AccessControlType
+-----------------                ---------------- -----------------
+CREATOR OWNER                         FullControl             Allow
+NT AUTHORITY\SYSTEM                   FullControl             Allow
+BUILTIN\Administrators                FullControl             Allow
+itsadlab\System Administrator Modify, Synchronize             Allow
+
+
+
+Processing NTFS permissions for: E:\Backups
+ - Added NTFS permission: ITSADLAB\System Administrator (RW)
+Current NTFS Permissions:
+
+IdentityReference                FileSystemRights AccessControlType
+-----------------                ---------------- -----------------
+CREATOR OWNER                         FullControl             Allow
+NT AUTHORITY\SYSTEM                   FullControl             Allow
+BUILTIN\Administrators                FullControl             Allow
+itsadlab\System Administrator Modify, Synchronize             Allow
+
+
+
+NTFS permission update completed.
+
+================================================================================
+[ SMB Remediation on LAB-DEWEY ]
+================================================================================
+
+[+] Completed: SMB Remediation (Runtime: 0.73s)
+
+Processing SMB Share: ITSC-203 - Scripting
+
+ - Granted: ITSADLAB\Students (RW)
+Current SMB Permissions:
+Name                 ScopeName AccountName       AccessControlType AccessRight
+----                 --------- -----------       ----------------- -----------
+ITSC-203 - Scripting *         itsadlab\Students Allow             Change     
+
+
+
+AccountName       AccessRight
+-----------       -----------
+itsadlab\Students      Change
+
+
+
+Processing SMB Share: Public
+
+ - Granted: ITSADLAB\System Administrator (RW)
+Current SMB Permissions:
+Name   ScopeName AccountName                   AccessControlType AccessRight
+----   --------- -----------                   ----------------- -----------
+Public *         itsadlab\System Administrator Allow             Change     
+
+
+
+AccountName                   AccessRight
+-----------                   -----------
+itsadlab\System Administrator      Change
+
+
+
+Processing SMB Share: Backups
+
+ - Granted: ITSADLAB\System Administrator (RW)
+Current SMB Permissions:
+Name    ScopeName AccountName                   AccessControlType AccessRight
+----    --------- -----------                   ----------------- -----------
+Backups *         itsadlab\System Administrator Allow             Change     
+
+
+
+AccountName                   AccessRight
+-----------                   -----------
+itsadlab\System Administrator      Change
+
+
+
+Processing SMB Share: IT
+
+ - Granted: ITSADLAB\System Administrator (RW)
+Current SMB Permissions:
+Name ScopeName AccountName                   AccessControlType AccessRight
+---- --------- -----------                   ----------------- -----------
+IT   *         itsadlab\System Administrator Allow             Change     
+
+
+
+AccountName                   AccessRight
+-----------                   -----------
+itsadlab\System Administrator      Change
+
+
+
+SMB permission update completed.
+
+
+=== Remediation Complete on LAB-DEWEY ===
