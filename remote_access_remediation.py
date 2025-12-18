@@ -14,7 +14,10 @@ REMOTE_BASE_DIR = r"C:\Scripts"
 REMOTE_LOG_DIR = r"C:\Scripts\logs"
 
 # Remediation script
-LOCAL_REMEDIATION_SCRIPT = r"C:\Users\yayen.itsadlab\Documents\windows-share-permissions-auditor\permissions_remediation.py"
+LOCAL_REMEDIATION_SCRIPT = (
+    r"C:\Users\yayen.itsadlab\Documents"
+    r"\windows-share-permissions-auditor\permissions_remediation.py"
+)
 REMOTE_REMEDIATION_SCRIPT = r"C:\Scripts\permissions_remediation.py"
 
 
@@ -57,22 +60,24 @@ class RemoteRemediator:
             print(f"[!] Local remediation script not found: {LOCAL_REMEDIATION_SCRIPT}")
             sys.exit(1)
 
-        print(f"[+] Uploading {os.path.basename(LOCAL_REMEDIATION_SCRIPT)} "
-              f"-> {REMOTE_REMEDIATION_SCRIPT}")
+        print(
+            f"[+] Uploading {os.path.basename(LOCAL_REMEDIATION_SCRIPT)} "
+            f"-> {REMOTE_REMEDIATION_SCRIPT}"
+        )
 
         self.client.copy(LOCAL_REMEDIATION_SCRIPT, REMOTE_REMEDIATION_SCRIPT)
         print("[+] Transfer complete.\n")
 
     # -------------------------------
-    # Execute remediation script
+    # Execute remediation script (CSV OUTPUT)
     # -------------------------------
-    def execute_remediation(self, remote_log):
+    def execute_remediation(self, remote_log_csv):
         print(f"[+] Executing permissions_remediation.py on {self.server}")
 
         command = (
             f"$py = '{PYTHON_PATH}'; "
             f"& $py -u '{REMOTE_REMEDIATION_SCRIPT}' "
-            f"| Out-File -FilePath '{remote_log}' -Encoding utf8 -Force"
+            f"| Out-File -FilePath '{remote_log_csv}' -Encoding utf8 -Force"
         )
 
         stdout, stderr, success = self.client.execute_ps(command)
@@ -85,30 +90,30 @@ class RemoteRemediator:
             for err in stderr.error:
                 print(err)
 
-        # Verify remediation log exists
-        verify_cmd = f"Test-Path '{remote_log}'"
+        # Verify CSV log exists
+        verify_cmd = f"Test-Path '{remote_log_csv}'"
         result, _, _ = self.client.execute_ps(verify_cmd)
 
         if "True" not in result:
-            print(f"[!] Remediation log not created: {remote_log}")
+            print(f"[!] CSV remediation log not created: {remote_log_csv}")
             print("STDOUT:\n", stdout)
             return False
 
-        print("[+] Remote remediation log verified.\n")
+        print("[+] Remote remediation CSV verified.\n")
         return True
 
     # -------------------------------
-    # Fetch remediation log
+    # Fetch remediation CSV
     # -------------------------------
-    def fetch_log(self, remote_log, local_log):
-        print(f"[+] Downloading remediation log from {self.server}")
-        os.makedirs(os.path.dirname(local_log), exist_ok=True)
+    def fetch_log(self, remote_log_csv, local_log_csv):
+        print(f"[+] Downloading remediation CSV from {self.server}")
+        os.makedirs(os.path.dirname(local_log_csv), exist_ok=True)
 
         try:
-            self.client.fetch(remote_log, local_log)
-            print(f"[+] Remediation log saved locally: {local_log}\n")
+            self.client.fetch(remote_log_csv, local_log_csv)
+            print(f"[+] Remediation CSV saved locally: {local_log_csv}\n")
         except Exception as e:
-            print(f"[!] Failed to fetch remediation log: {e}")
+            print(f"[!] Failed to fetch remediation CSV: {e}")
 
     # -------------------------------
     # Full remediation workflow
@@ -122,12 +127,17 @@ class RemoteRemediator:
 
         timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
 
-        remote_log = f"{REMOTE_LOG_DIR}\\remediation.txt"
-        local_log = f"C:\\Users\\yayen.itsadlab\\documents\\windows-share-permissions-auditor\\logs\\remediation_{self.server}_{timestamp}.txt"
+        remote_log_csv = f"{REMOTE_LOG_DIR}\\remediation.csv"
+
+        # ✅ FIX: SAFE PATH CONSTRUCTION (ONLY CHANGE)
+        local_log_csv = os.path.join(
+            r"C:\Users\yayen.itsadlab\documents\windows-share-permissions-auditor\logs",
+            f"remediation_{self.server}_{timestamp}.csv"
+        )
 
         self.transfer_script()
-        if self.execute_remediation(remote_log):
-            self.fetch_log(remote_log, local_log)
+        if self.execute_remediation(remote_log_csv):
+            self.fetch_log(remote_log_csv, local_log_csv)
 
         print("=== Remediation Complete ===\n")
 
