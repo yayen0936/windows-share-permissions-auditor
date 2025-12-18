@@ -1,0 +1,45 @@
+﻿=== Starting SMB + NTFS Remediation on LAB-DEWEY ===
+
+================================================================================
+[ SMB Share Remediation (Backups) on LAB-DEWEY ]
+================================================================================
+
+[+] Completed: SMB Share Remediation (Backups) (Runtime: 1.03s)
+================================================================================
+[ SMB Share Remediation (IT) on LAB-DEWEY ]
+================================================================================
+
+[+] Completed: SMB Share Remediation (IT) (Runtime: 1.02s)
+================================================================================
+[ SMB Share Remediation (Public) on LAB-DEWEY ]
+================================================================================
+
+[+] Completed: SMB Share Remediation (Public) (Runtime: 1.03s)
+================================================================================
+[ SMB Share Remediation (ITSC-203 - Scripting) on LAB-DEWEY ]
+================================================================================
+
+[+] Completed: SMB Share Remediation (ITSC-203 - Scripting) (Runtime: 1.02s)
+================================================================================
+[ NTFS Remediation (E:\Backups) on LAB-DEWEY ]
+================================================================================
+
+[+] Completed: NTFS Remediation (E:\Backups) (Runtime: 1.02s)
+================================================================================
+[ NTFS Remediation (E:\IT) on LAB-DEWEY ]
+================================================================================
+
+[+] Completed: NTFS Remediation (E:\IT) (Runtime: 1.02s)
+================================================================================
+[ NTFS Remediation (E:\Public) on LAB-DEWEY ]
+================================================================================
+
+[+] Completed: NTFS Remediation (E:\Public) (Runtime: 1.02s)
+================================================================================
+[ NTFS Remediation (E:\ITSC-203 - Scripting) on LAB-DEWEY ]
+================================================================================
+
+[+] Completed: NTFS Remediation (E:\ITSC-203 - Scripting) (Runtime: 1.02s)
+
+=== Remediation Complete on LAB-DEWEY ===
+

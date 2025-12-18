@@ -1,0 +1,104 @@
+﻿=== Starting Permissions Remediation for LAB-DEWEY ===
+
+================================================================================
+[ SMB Share Remediation on LAB-DEWEY ]
+================================================================================
+================================================================================
+[ NTFS Remediation – Targeted Folders Only ]
+================================================================================
+
+[+] Processing folder: E:\Backups
+processed file: E:\Backups
+processed file: E:\Backups\router_config.cfg
+processed file: E:\Backups\server_backup.cfg
+processed file: E:\Backups\switch_config.txt
+Successfully processed 4 files; Failed processing 0 files
+processed file: E:\Backups
+processed file: E:\Backups\router_config.cfg
+processed file: E:\Backups\server_backup.cfg
+processed file: E:\Backups\switch_config.txt
+Successfully processed 4 files; Failed processing 0 files
+processed file: E:\Backups
+processed file: E:\Backups\router_config.cfg
+processed file: E:\Backups\server_backup.cfg
+processed file: E:\Backups\switch_config.txt
+Successfully processed 4 files; Failed processing 0 files
+processed file: E:\Backups
+processed file: E:\Backups\router_config.cfg
+processed file: E:\Backups\server_backup.cfg
+processed file: E:\Backups\switch_config.txt
+Successfully processed 4 files; Failed processing 0 files
+processed file: E:\Backups
+processed file: E:\Backups\router_config.cfg
+processed file: E:\Backups\server_backup.cfg
+processed file: E:\Backups\switch_config.txt
+Successfully processed 4 files; Failed processing 0 files
+
+[+] Processing folder: E:\IT
+processed file: E:\IT
+processed file: E:\IT\admin_passwords.txt
+processed file: E:\IT\office_licensess.txt
+processed file: E:\IT\wifi_passwords.txt
+Successfully processed 4 files; Failed processing 0 files
+processed file: E:\IT
+processed file: E:\IT\admin_passwords.txt
+processed file: E:\IT\office_licensess.txt
+processed file: E:\IT\wifi_passwords.txt
+Successfully processed 4 files; Failed processing 0 files
+processed file: E:\IT
+processed file: E:\IT\admin_passwords.txt
+processed file: E:\IT\office_licensess.txt
+processed file: E:\IT\wifi_passwords.txt
+Successfully processed 4 files; Failed processing 0 files
+processed file: E:\IT
+processed file: E:\IT\admin_passwords.txt
+processed file: E:\IT\office_licensess.txt
+processed file: E:\IT\wifi_passwords.txt
+Successfully processed 4 files; Failed processing 0 files
+processed file: E:\IT
+processed file: E:\IT\admin_passwords.txt
+processed file: E:\IT\office_licensess.txt
+processed file: E:\IT\wifi_passwords.txt
+Successfully processed 4 files; Failed processing 0 files
+
+[+] Processing folder: E:\ITSC-203 - Scripting
+processed file: E:\ITSC-203 - Scripting
+processed file: E:\ITSC-203 - Scripting\Lab Activities
+processed file: E:\ITSC-203 - Scripting\Learning Materials
+Successfully processed 3 files; Failed processing 0 files
+processed file: E:\ITSC-203 - Scripting
+processed file: E:\ITSC-203 - Scripting\Lab Activities
+processed file: E:\ITSC-203 - Scripting\Learning Materials
+Successfully processed 3 files; Failed processing 0 files
+processed file: E:\ITSC-203 - Scripting
+processed file: E:\ITSC-203 - Scripting\Lab Activities
+processed file: E:\ITSC-203 - Scripting\Learning Materials
+Successfully processed 3 files; Failed processing 0 files
+processed file: E:\ITSC-203 - Scripting
+processed file: E:\ITSC-203 - Scripting\Lab Activities
+processed file: E:\ITSC-203 - Scripting\Learning Materials
+Successfully processed 3 files; Failed processing 0 files
+processed file: E:\ITSC-203 - Scripting
+processed file: E:\ITSC-203 - Scripting\Lab Activities
+processed file: E:\ITSC-203 - Scripting\Learning Materials
+Successfully processed 3 files; Failed processing 0 files
+processed file: E:\ITSC-203 - Scripting
+Successfully processed 1 files; Failed processing 0 files
+[+] Granted Students RW access to E:\ITSC-203 - Scripting
+
+[+] Processing folder: E:\Public
+processed file: E:\Public
+Successfully processed 1 files; Failed processing 0 files
+processed file: E:\Public
+Successfully processed 1 files; Failed processing 0 files
+processed file: E:\Public
+Successfully processed 1 files; Failed processing 0 files
+processed file: E:\Public
+Successfully processed 1 files; Failed processing 0 files
+processed file: E:\Public
+Successfully processed 1 files; Failed processing 0 files
+
+[+] Targeted NTFS remediation completed
+
+=== Remediation Complete for LAB-DEWEY ===
+
