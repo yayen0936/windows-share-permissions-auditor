@@ -1,0 +1,157 @@
+﻿=== Starting Permissions Remediation for LAB-DEWEY ===
+
+================================================================================
+[ SMB Share Remediation on LAB-DEWEY ]
+================================================================================
+
+Name                 ScopeName AccountName            AccessControlType AccessRight
+----                 --------- -----------            ----------------- -----------
+Backups              *         Everyone               Deny              Full       
+Backups              *         Everyone               Deny              Full       
+Backups              *         Everyone               Deny              Full       
+Backups              *         BUILTIN\Administrators Allow             Full       
+Backups              *         BUILTIN\Administrators Allow             Full       
+Backups              *         NT AUTHORITY\SYSTEM    Allow             Full       
+FedYYC               *         BUILTIN\Administrators Allow             Full       
+FedYYC               *         BUILTIN\Administrators Allow             Full       
+FedYYC               *         BUILTIN\Administrators Allow             Full       
+FedYYC               *         BUILTIN\Administrators Allow             Full       
+FedYYC               *         BUILTIN\Administrators Allow             Full       
+FedYYC               *         NT AUTHORITY\SYSTEM    Allow             Full       
+IT                   *         Everyone               Deny              Full       
+IT                   *         Everyone               Deny              Full       
+IT                   *         Everyone               Deny              Full       
+IT                   *         BUILTIN\Administrators Allow             Full       
+IT                   *         BUILTIN\Administrators Allow             Full       
+IT                   *         NT AUTHORITY\SYSTEM    Allow             Full       
+ITSC-203 - Scripting *         Everyone               Deny              Full       
+ITSC-203 - Scripting *         Everyone               Deny              Full       
+ITSC-203 - Scripting *         Everyone               Deny              Full       
+ITSC-203 - Scripting *         BUILTIN\Administrators Allow             Full       
+ITSC-203 - Scripting *         BUILTIN\Administrators Allow             Full       
+ITSC-203 - Scripting *         NT AUTHORITY\SYSTEM    Allow             Full       
+NETLOGON             *         BUILTIN\Administrators Allow             Full       
+NETLOGON             *         BUILTIN\Administrators Allow             Full       
+NETLOGON             *         BUILTIN\Administrators Allow             Full       
+NETLOGON             *         BUILTIN\Administrators Allow             Full       
+NETLOGON             *         BUILTIN\Administrators Allow             Full       
+NETLOGON             *         NT AUTHORITY\SYSTEM    Allow             Full       
+Public               *         Everyone               Deny              Full       
+Public               *         Everyone               Deny              Full       
+Public               *         Everyone               Deny              Full       
+Public               *         BUILTIN\Administrators Allow             Full       
+Public               *         BUILTIN\Administrators Allow             Full       
+Public               *         NT AUTHORITY\SYSTEM    Allow             Full       
+SYSVOL               *         BUILTIN\Administrators Allow             Full       
+SYSVOL               *         NT AUTHORITY\Authen... Allow             Full       
+SYSVOL               *         BUILTIN\Administrators Allow             Full       
+SYSVOL               *         BUILTIN\Administrators Allow             Full       
+SYSVOL               *         BUILTIN\Administrators Allow             Full       
+SYSVOL               *         BUILTIN\Administrators Allow             Full       
+SYSVOL               *         NT AUTHORITY\SYSTEM    Allow             Full       
+ITSC-203 - Scripting *         BUILTIN\Administrators Allow             Full       
+ITSC-203 - Scripting *         NT AUTHORITY\SYSTEM    Allow             Full       
+ITSC-203 - Scripting *         itsadlab\Students      Allow             Change     
+Granted Students RW access to share: ITSC-203 - Scripting
+
+
+
+================================================================================
+[ NTFS Remediation – Targeted Folders Only ]
+================================================================================
+
+[+] Processing folder: E:\Backups
+processed file: E:\Backups
+processed file: E:\Backups\router_config.cfg
+processed file: E:\Backups\server_backup.cfg
+processed file: E:\Backups\switch_config.txt
+Successfully processed 4 files; Failed processing 0 files
+processed file: E:\Backups
+processed file: E:\Backups\router_config.cfg
+processed file: E:\Backups\server_backup.cfg
+processed file: E:\Backups\switch_config.txt
+Successfully processed 4 files; Failed processing 0 files
+processed file: E:\Backups
+processed file: E:\Backups\router_config.cfg
+processed file: E:\Backups\server_backup.cfg
+processed file: E:\Backups\switch_config.txt
+Successfully processed 4 files; Failed processing 0 files
+processed file: E:\Backups
+processed file: E:\Backups\router_config.cfg
+processed file: E:\Backups\server_backup.cfg
+processed file: E:\Backups\switch_config.txt
+Successfully processed 4 files; Failed processing 0 files
+processed file: E:\Backups
+processed file: E:\Backups\router_config.cfg
+processed file: E:\Backups\server_backup.cfg
+processed file: E:\Backups\switch_config.txt
+Successfully processed 4 files; Failed processing 0 files
+
+[+] Processing folder: E:\IT
+processed file: E:\IT
+processed file: E:\IT\admin_passwords.txt
+processed file: E:\IT\office_licensess.txt
+processed file: E:\IT\wifi_passwords.txt
+Successfully processed 4 files; Failed processing 0 files
+processed file: E:\IT
+processed file: E:\IT\admin_passwords.txt
+processed file: E:\IT\office_licensess.txt
+processed file: E:\IT\wifi_passwords.txt
+Successfully processed 4 files; Failed processing 0 files
+processed file: E:\IT
+processed file: E:\IT\admin_passwords.txt
+processed file: E:\IT\office_licensess.txt
+processed file: E:\IT\wifi_passwords.txt
+Successfully processed 4 files; Failed processing 0 files
+processed file: E:\IT
+processed file: E:\IT\admin_passwords.txt
+processed file: E:\IT\office_licensess.txt
+processed file: E:\IT\wifi_passwords.txt
+Successfully processed 4 files; Failed processing 0 files
+processed file: E:\IT
+processed file: E:\IT\admin_passwords.txt
+processed file: E:\IT\office_licensess.txt
+processed file: E:\IT\wifi_passwords.txt
+Successfully processed 4 files; Failed processing 0 files
+
+[+] Processing folder: E:\ITSC-203 - Scripting
+processed file: E:\ITSC-203 - Scripting
+processed file: E:\ITSC-203 - Scripting\Lab Activities
+processed file: E:\ITSC-203 - Scripting\Learning Materials
+Successfully processed 3 files; Failed processing 0 files
+processed file: E:\ITSC-203 - Scripting
+processed file: E:\ITSC-203 - Scripting\Lab Activities
+processed file: E:\ITSC-203 - Scripting\Learning Materials
+Successfully processed 3 files; Failed processing 0 files
+processed file: E:\ITSC-203 - Scripting
+processed file: E:\ITSC-203 - Scripting\Lab Activities
+processed file: E:\ITSC-203 - Scripting\Learning Materials
+Successfully processed 3 files; Failed processing 0 files
+processed file: E:\ITSC-203 - Scripting
+processed file: E:\ITSC-203 - Scripting\Lab Activities
+processed file: E:\ITSC-203 - Scripting\Learning Materials
+Successfully processed 3 files; Failed processing 0 files
+processed file: E:\ITSC-203 - Scripting
+processed file: E:\ITSC-203 - Scripting\Lab Activities
+processed file: E:\ITSC-203 - Scripting\Learning Materials
+Successfully processed 3 files; Failed processing 0 files
+processed file: E:\ITSC-203 - Scripting
+Successfully processed 1 files; Failed processing 0 files
+[+] Granted Students RW access to E:\ITSC-203 - Scripting
+
+[+] Processing folder: E:\Public
+processed file: E:\Public
+Successfully processed 1 files; Failed processing 0 files
+processed file: E:\Public
+Successfully processed 1 files; Failed processing 0 files
+processed file: E:\Public
+Successfully processed 1 files; Failed processing 0 files
+processed file: E:\Public
+Successfully processed 1 files; Failed processing 0 files
+processed file: E:\Public
+Successfully processed 1 files; Failed processing 0 files
+
+[+] Targeted NTFS remediation completed
+
+=== Remediation Complete for LAB-DEWEY ===
+
