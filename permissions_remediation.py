@@ -1,36 +1,30 @@
-import subprocess  # used to execute PowerShell and system commands
+import subprocess
 
 # ---------------------------------------------------------------------
-# Global Variables
+# Global Configuration
 # ---------------------------------------------------------------------
 server = "LAB-DEWEY"
 
-# Explicit remediation targets ONLY (single source of truth)
-TARGET_FOLDERS = [
-    r"E:\Backups",
-    r"E:\IT",
-    r"E:\ITSC-203 - Scripting",
-    r"E:\Public"
-]
+DOMAIN = "ITSADLAB"
 
-# Explicit exception folder (must be in TARGET_FOLDERS)
-student_folder = r"E:\ITSC-203 - Scripting"
-student_group = "Students"
+SYSTEM_ADMIN_GROUP = f"{DOMAIN}\\System Administrator"
+STUDENTS_GROUP = f"{DOMAIN}\\Students"
 
-admin_group = "BUILTIN\\Administrators"
-system_account = "SYSTEM"
+SYSTEM_ACCOUNT = "SYSTEM"                 # FIXED
+ADMIN_GROUP = "BUILTIN\\Administrators"
 
+FOLDER_ACCESS_MAP = {
+    r"E:\Backups": SYSTEM_ADMIN_GROUP,
+    r"E:\IT": SYSTEM_ADMIN_GROUP,
+    r"E:\Public": SYSTEM_ADMIN_GROUP,
+    r"E:\ITSC-203 - Scripting": STUDENTS_GROUP,
+}
 
-# ---------------------------------------------------------------------
-# class: defines a blueprint for remediating SMB shares and NTFS permissions
 # ---------------------------------------------------------------------
 class FileShareRemediator:
     def __init__(self):
         self.server = server
 
-    # -------------------------------
-    # function: runs a PowerShell command (safe invocation)
-    # -------------------------------
     def run_powershell(self, ps_command, description):
         print("=" * 80)
         print(f"[ {description} on {self.server} ]")
@@ -43,113 +37,74 @@ class FileShareRemediator:
             text=True
         )
 
-        output, error = proc.communicate()
-
-        if output:
-            print(output)
-        if error:
-            print(f"[!] Errors:\n{error}")
+        out, err = proc.communicate()
+        if out:
+            print(out)
+        if err:
+            print(f"[!] Errors:\n{err}")
 
     # -------------------------------
-    # function: remediate SMB share permissions (FIXED)
+    # SMB Share Remediation (FIXED)
     # -------------------------------
     def remediate_smb_shares(self):
         ps_command = rf'''
-        $allowedShares = @(
-            "Backups",
-            "IT",
-            "ITSC-203 - Scripting",
-            "Public"
-        )
+$map = @{{
+    "Backups" = "{SYSTEM_ADMIN_GROUP}"
+    "IT" = "{SYSTEM_ADMIN_GROUP}"
+    "Public" = "{SYSTEM_ADMIN_GROUP}"
+    "ITSC-203 - Scripting" = "{STUDENTS_GROUP}"
+}}
 
-        foreach ($share in Get-SmbShare | Where-Object {{ $allowedShares -contains $_.Name }}) {{
+foreach ($share in Get-SmbShare | Where-Object {{ $map.ContainsKey($_.Name) }}) {{
 
-            Write-Host "Processing share: $($share.Name)"
-
-            # Remove ALL Everyone ACEs (Allow + Deny)
-            Get-SmbShareAccess -Name $share.Name |
-                Where-Object {{ $_.AccountName -eq "Everyone" }} |
-                ForEach-Object {{
-                    Revoke-SmbShareAccess -Name $share.Name -AccountName "Everyone" -Force
-                }}
-
-            # Remove other broad groups
-            foreach ($acct in @("Authenticated Users", "BUILTIN\Users")) {{
-                try {{
-                    Revoke-SmbShareAccess -Name $share.Name -AccountName $acct -Force
-                }} catch {{}}
-            }}
-
-            # Grant baseline admin access
-            Grant-SmbShareAccess -Name $share.Name -AccountName "{admin_group}" -AccessRight Full -Force
-            Grant-SmbShareAccess -Name $share.Name -AccountName "NT AUTHORITY\SYSTEM" -AccessRight Full -Force
+    # Remove broad access
+    Get-SmbShareAccess -Name $share.Name |
+        Where-Object {{
+            $_.AccountName -in @("Everyone","Authenticated Users","BUILTIN\\Users")
+        }} |
+        ForEach-Object {{
+            Revoke-SmbShareAccess -Name $share.Name -AccountName $_.AccountName -Force
         }}
 
-        # Students RW access ONLY for ITSC-203 - Scripting
-        if (Get-SmbShare | Where-Object {{ $_.Path -eq "{student_folder}" }}) {{
-            $s = (Get-SmbShare | Where-Object {{ $_.Path -eq "{student_folder}" }}).Name
-            Grant-SmbShareAccess -Name $s -AccountName "{student_group}" -AccessRight Change -Force
-            Write-Host "Granted Students RW access to share: $s"
-        }}
-        '''
+    # REPLACE admin access (no duplicates)
+    Set-SmbShareAccess -Name $share.Name -AccountName "{ADMIN_GROUP}" -AccessRight Full -Force
+    Set-SmbShareAccess -Name $share.Name -AccountName "{SYSTEM_ACCOUNT}" -AccessRight Full -Force
+
+    # Folder-specific RW group
+    Grant-SmbShareAccess -Name $share.Name `
+        -AccountName $map[$share.Name] `
+        -AccessRight Change `
+        -Force
+}}
+'''
         self.run_powershell(ps_command, "SMB Share Remediation")
 
     # -------------------------------
-    # function: remediate NTFS permissions (TARGETED ONLY – unchanged)
+    # NTFS Remediation (unchanged)
     # -------------------------------
     def remediate_ntfs(self):
-        print("=" * 80)
-        print("[ NTFS Remediation – Targeted Folders Only ]")
-        print("=" * 80)
+        for folder, rw_group in FOLDER_ACCESS_MAP.items():
 
-        for folder in TARGET_FOLDERS:
-            print(f"\n[+] Processing folder: {folder}")
-
-            if subprocess.run(
-                ["cmd", "/c", f'if exist "{folder}" exit 0'],
-                capture_output=True
-            ).returncode != 0:
-                print(f"[!] Folder not found, skipping: {folder}")
-                continue
-
-            # Remove broad access
             subprocess.run(["icacls", folder, "/remove", "Everyone", "/T", "/C"])
             subprocess.run(["icacls", folder, "/remove", "Authenticated Users", "/T", "/C"])
             subprocess.run(["icacls", folder, "/remove", "BUILTIN\\Users", "/T", "/C"])
 
-            # Grant SYSTEM and Administrators
-            subprocess.run(["icacls", folder, "/grant", f"{system_account}:(OI)(CI)F", "/T", "/C"])
-            subprocess.run(["icacls", folder, "/grant", f"{admin_group}:(OI)(CI)F", "/T", "/C"])
+            subprocess.run(["icacls", folder, "/grant:r", f"{SYSTEM_ACCOUNT}:(OI)(CI)F", "/T", "/C"])
+            subprocess.run(["icacls", folder, "/grant", f"{ADMIN_GROUP}:(OI)(CI)F", "/T", "/C"])
 
-            # Student exception ONLY for ITSC-203
-            if folder == student_folder:
-                subprocess.run([
-                    "icacls", folder,
-                    "/grant:r", f"{student_group}:(OI)(CI)M",
-                    "/C"
-                ])
-                print(f"[+] Granted Students RW access to {folder}")
+            subprocess.run([
+                "icacls", folder,
+                "/grant", f"{rw_group}:(OI)(CI)M",
+                "/C"
+            ])
 
-        print("\n[+] Targeted NTFS remediation completed")
-
-    # -------------------------------
-    # function: full remediation workflow
-    # -------------------------------
     def run_full_remediation(self):
-        print(f"=== Starting Permissions Remediation for {self.server} ===\n")
-
         self.remediate_smb_shares()
         self.remediate_ntfs()
 
-        print(f"\n=== Remediation Complete for {self.server} ===\n")
 
-
-# ---------------------------------------------------------------------
-# main
-# ---------------------------------------------------------------------
 def main():
-    remediator = FileShareRemediator()
-    remediator.run_full_remediation()
+    FileShareRemediator().run_full_remediation()
 
 
 if __name__ == "__main__":
