@@ -129,7 +129,6 @@ class RemoteRemediator:
 
         remote_log_csv = f"{REMOTE_LOG_DIR}\\remediation.csv"
 
-        # ✅ FIX: SAFE PATH CONSTRUCTION (ONLY CHANGE)
         local_log_csv = os.path.join(
             r"C:\Users\yayen.itsadlab\documents\windows-share-permissions-auditor\logs",
             f"remediation_{self.server}_{timestamp}.csv"
