@@ -1,0 +1,190 @@
+﻿=== Starting Permissions Remediation for LAB-DEWEY ===
+
+================================================================================
+[ SMB Share Remediation on LAB-DEWEY ]
+================================================================================
+Processing share: Backups
+
+Processing share: IT
+Processing share: ITSC-203 - Scripting
+Processing share: Public
+Name                 ScopeName AccountName            AccessControlType AccessRight
+----                 --------- -----------            ----------------- -----------
+Backups              *         NT AUTHORITY\SYSTEM    Allow             Full       
+Backups              *         BUILTIN\Administrators Allow             Full       
+IT                   *         NT AUTHORITY\SYSTEM    Allow             Full       
+IT                   *         BUILTIN\Administrators Allow             Full       
+ITSC-203 - Scripting *         NT AUTHORITY\SYSTEM    Allow             Full       
+ITSC-203 - Scripting *         itsadlab\Students      Allow             Change     
+ITSC-203 - Scripting *         BUILTIN\Administrators Allow             Full       
+ITSC-203 - Scripting *         NT AUTHORITY\SYSTEM    Allow             Full       
+ITSC-203 - Scripting *         BUILTIN\Administrators Allow             Full       
+ITSC-203 - Scripting *         itsadlab\Students      Allow             Change     
+Public               *         NT AUTHORITY\SYSTEM    Allow             Full       
+Public               *         BUILTIN\Administrators Allow             Full       
+
+
+
+[!] Errors:
+Grant-SmbShareAccess : No mapping between account names and security IDs was done. 
+At line:24 char:5
++     Grant-SmbShareAccess -Name $share.Name -AccountName "NT AUTHORITY ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (MSFT_SmbShare (...copeName = "*"):ROOT/Microsoft/Windows/SMB/MSFT_SMBShar 
+   e) [Grant-SmbShareAccess], CimException
+    + FullyQualifiedErrorId : Windows System Error 1332,Grant-SmbShareAccess
+ 
+Grant-SmbShareAccess : No mapping between account names and security IDs was done. 
+At line:27 char:5
++     Grant-SmbShareAccess -Name $share.Name `
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (MSFT_SmbShare (...copeName = "*"):ROOT/Microsoft/Windows/SMB/MSFT_SMBShar 
+   e) [Grant-SmbShareAccess], CimException
+    + FullyQualifiedErrorId : Windows System Error 1332,Grant-SmbShareAccess
+ 
+Grant-SmbShareAccess : No mapping between account names and security IDs was done. 
+At line:24 char:5
++     Grant-SmbShareAccess -Name $share.Name -AccountName "NT AUTHORITY ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (MSFT_SmbShare (...copeName = "*"):ROOT/Microsoft/Windows/SMB/MSFT_SMBShar 
+   e) [Grant-SmbShareAccess], CimException
+    + FullyQualifiedErrorId : Windows System Error 1332,Grant-SmbShareAccess
+ 
+Grant-SmbShareAccess : No mapping between account names and security IDs was done. 
+At line:27 char:5
++     Grant-SmbShareAccess -Name $share.Name `
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (MSFT_SmbShare (...copeName = "*"):ROOT/Microsoft/Windows/SMB/MSFT_SMBShar 
+   e) [Grant-SmbShareAccess], CimException
+    + FullyQualifiedErrorId : Windows System Error 1332,Grant-SmbShareAccess
+ 
+Grant-SmbShareAccess : No mapping between account names and security IDs was done. 
+At line:24 char:5
++     Grant-SmbShareAccess -Name $share.Name -AccountName "NT AUTHORITY ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (MSFT_SmbShare (...copeName = "*"):ROOT/Microsoft/Windows/SMB/MSFT_SMBShar 
+   e) [Grant-SmbShareAccess], CimException
+    + FullyQualifiedErrorId : Windows System Error 1332,Grant-SmbShareAccess
+ 
+Grant-SmbShareAccess : No mapping between account names and security IDs was done. 
+At line:24 char:5
++     Grant-SmbShareAccess -Name $share.Name -AccountName "NT AUTHORITY ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (MSFT_SmbShare (...copeName = "*"):ROOT/Microsoft/Windows/SMB/MSFT_SMBShar 
+   e) [Grant-SmbShareAccess], CimException
+    + FullyQualifiedErrorId : Windows System Error 1332,Grant-SmbShareAccess
+ 
+Grant-SmbShareAccess : No mapping between account names and security IDs was done. 
+At line:27 char:5
++     Grant-SmbShareAccess -Name $share.Name `
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (MSFT_SmbShare (...copeName = "*"):ROOT/Microsoft/Windows/SMB/MSFT_SMBShar 
+   e) [Grant-SmbShareAccess], CimException
+    + FullyQualifiedErrorId : Windows System Error 1332,Grant-SmbShareAccess
+ 
+
+================================================================================
+[ NTFS Remediation – Targeted Folders Only ]
+================================================================================
+
+[+] Processing folder: E:\Backups
+processed file: E:\Backups
+processed file: E:\Backups\router_config.cfg
+processed file: E:\Backups\server_backup.cfg
+processed file: E:\Backups\switch_config.txt
+Successfully processed 4 files; Failed processing 0 files
+processed file: E:\Backups
+processed file: E:\Backups\router_config.cfg
+processed file: E:\Backups\server_backup.cfg
+processed file: E:\Backups\switch_config.txt
+Successfully processed 4 files; Failed processing 0 files
+processed file: E:\Backups
+processed file: E:\Backups\router_config.cfg
+processed file: E:\Backups\server_backup.cfg
+processed file: E:\Backups\switch_config.txt
+Successfully processed 4 files; Failed processing 0 files
+processed file: E:\Backups
+processed file: E:\Backups\router_config.cfg
+processed file: E:\Backups\server_backup.cfg
+processed file: E:\Backups\switch_config.txt
+Successfully processed 4 files; Failed processing 0 files
+processed file: E:\Backups
+processed file: E:\Backups\router_config.cfg
+processed file: E:\Backups\server_backup.cfg
+processed file: E:\Backups\switch_config.txt
+Successfully processed 4 files; Failed processing 0 files
+Successfully processed 0 files; Failed processing 1 files
+[+] Granted RW access to ITSADLAB\System Administrators
+
+[+] Processing folder: E:\IT
+processed file: E:\IT
+processed file: E:\IT\admin_passwords.txt
+processed file: E:\IT\office_licensess.txt
+processed file: E:\IT\wifi_passwords.txt
+Successfully processed 4 files; Failed processing 0 files
+processed file: E:\IT
+processed file: E:\IT\admin_passwords.txt
+processed file: E:\IT\office_licensess.txt
+processed file: E:\IT\wifi_passwords.txt
+Successfully processed 4 files; Failed processing 0 files
+processed file: E:\IT
+processed file: E:\IT\admin_passwords.txt
+processed file: E:\IT\office_licensess.txt
+processed file: E:\IT\wifi_passwords.txt
+Successfully processed 4 files; Failed processing 0 files
+processed file: E:\IT
+processed file: E:\IT\admin_passwords.txt
+processed file: E:\IT\office_licensess.txt
+processed file: E:\IT\wifi_passwords.txt
+Successfully processed 4 files; Failed processing 0 files
+processed file: E:\IT
+processed file: E:\IT\admin_passwords.txt
+processed file: E:\IT\office_licensess.txt
+processed file: E:\IT\wifi_passwords.txt
+Successfully processed 4 files; Failed processing 0 files
+Successfully processed 0 files; Failed processing 1 files
+[+] Granted RW access to ITSADLAB\System Administrators
+
+[+] Processing folder: E:\Public
+processed file: E:\Public
+Successfully processed 1 files; Failed processing 0 files
+processed file: E:\Public
+Successfully processed 1 files; Failed processing 0 files
+processed file: E:\Public
+Successfully processed 1 files; Failed processing 0 files
+processed file: E:\Public
+Successfully processed 1 files; Failed processing 0 files
+processed file: E:\Public
+Successfully processed 1 files; Failed processing 0 files
+Successfully processed 0 files; Failed processing 1 files
+[+] Granted RW access to ITSADLAB\System Administrators
+
+[+] Processing folder: E:\ITSC-203 - Scripting
+processed file: E:\ITSC-203 - Scripting
+processed file: E:\ITSC-203 - Scripting\Lab Activities
+processed file: E:\ITSC-203 - Scripting\Learning Materials
+Successfully processed 3 files; Failed processing 0 files
+processed file: E:\ITSC-203 - Scripting
+processed file: E:\ITSC-203 - Scripting\Lab Activities
+processed file: E:\ITSC-203 - Scripting\Learning Materials
+Successfully processed 3 files; Failed processing 0 files
+processed file: E:\ITSC-203 - Scripting
+processed file: E:\ITSC-203 - Scripting\Lab Activities
+processed file: E:\ITSC-203 - Scripting\Learning Materials
+Successfully processed 3 files; Failed processing 0 files
+processed file: E:\ITSC-203 - Scripting
+processed file: E:\ITSC-203 - Scripting\Lab Activities
+processed file: E:\ITSC-203 - Scripting\Learning Materials
+Successfully processed 3 files; Failed processing 0 files
+processed file: E:\ITSC-203 - Scripting
+processed file: E:\ITSC-203 - Scripting\Lab Activities
+processed file: E:\ITSC-203 - Scripting\Learning Materials
+Successfully processed 3 files; Failed processing 0 files
+processed file: E:\ITSC-203 - Scripting
+Successfully processed 1 files; Failed processing 0 files
+[+] Granted RW access to ITSADLAB\Students
+
+[+] NTFS remediation completed
+
+=== Remediation Complete for LAB-DEWEY ===
+
